@@ -367,6 +367,7 @@ nav {
 .project-card.ai-nlp::before { background: linear-gradient(90deg, var(--green), #06b6d4); }
 .project-card.fintech::before { background: linear-gradient(90deg, var(--gold), var(--coral)); }
 .project-card.mobile::before { background: linear-gradient(90deg, var(--purple), #ec4899); }
+.project-card.ecom::before { background: linear-gradient(90deg, #f0b400, #111110); }
 
 .project-card:hover {
   border-color: var(--border-strong); box-shadow: var(--shadow-lg);
@@ -384,6 +385,7 @@ nav {
 .type-ai { background: var(--green-bg); color: var(--green); }
 .type-fin { background: var(--gold-bg); color: #92701e; }
 .type-mobile { background: var(--purple-bg); color: var(--purple); }
+.type-ecom { background: #fdf9e7; color: #8a6d00; }
 
 .project-links-top { display: flex; gap: 0.5rem; }
 .icon-btn {
@@ -928,6 +930,33 @@ footer {
         <div class="project-footer">
           <a href="https://expo.dev/accounts/emmanuel_codes22/projects/SkinCareApp/builds/63cd313d-649f-49f5-8c60-276397ddb3be" target="_blank" class="project-link-btn link-primary">Download APK ↗</a>
           <a href="https://github.com/IfElseexe" target="_blank" class="project-link-btn link-ghost">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- ÈKÓ Streetwear Store -->
+      <div class="project-card ecom reveal" style="transition-delay:0.2s">
+        <div class="project-header">
+          <span class="project-type type-ecom">E-Commerce · Web</span>
+          <div class="project-links-top">
+            <a href="https://eko-store-teal.vercel.app" target="_blank" class="icon-btn" title="Live demo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-name">ÈKÓ — Lagos Streetwear Store</h3>
+        <p class="project-desc">
+          Fashion e-commerce storefront for a Lagos streetwear brand. Product catalog with category 
+          filtering, size selection, persistent cart with delivery-fee logic, and a demo checkout flow — 
+          all product imagery hand-drawn as inline SVG, with a custom danfo-yellow design system. Fully deployed.
+        </p>
+        <div class="project-stack">
+          <span class="stack-pill">React 19</span><span class="stack-pill">Vite</span>
+          <span class="stack-pill">CSS Custom Properties</span><span class="stack-pill">SVG</span>
+          <span class="stack-pill">localStorage</span><span class="stack-pill">Vercel</span>
+        </div>
+        <div class="project-footer">
+          <a href="https://eko-store-teal.vercel.app" target="_blank" class="project-link-btn link-primary">Live Demo ↗</a>
+          <a href="https://github.com/IfElseexe/eko-store" target="_blank" class="project-link-btn link-ghost">GitHub ↗</a>
         </div>
       </div>
 
