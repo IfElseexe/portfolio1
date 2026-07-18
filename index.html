@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ajibade Emmanuel — Software Engineer</title>
+<title>Ajibade Emmanuel | Software Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Clash+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -44,6 +44,59 @@
 }
 
 html { scroll-behavior: smooth; }
+
+/* ── THEME: DARK ── */
+html[data-theme="dark"] {
+  --bg: #0e0f13;
+  --surface: #16171d;
+  --surface-raised: #1b1c23;
+  --border: #262830;
+  --border-strong: #34363f;
+  --text-primary: #eeede8;
+  --text-secondary: #a3a29b;
+  --text-muted: #6d6c66;
+  --accent: #7c9aff;
+  --accent-2: #a5b8ff;
+  --accent-bg: rgba(124,154,255,0.10);
+  --accent-border: rgba(124,154,255,0.28);
+  --gold-bg: rgba(201,168,76,0.12);
+  --green-bg: rgba(22,163,74,0.12);
+  --purple-bg: rgba(148,110,255,0.13);
+  --coral-bg: rgba(226,67,30,0.12);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow: 0 4px 16px rgba(0,0,0,0.55);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.6);
+}
+html[data-theme="dark"] .type-fin { background: var(--gold-bg); color: #d9bb6a; }
+html[data-theme="dark"] .type-ecom { background: var(--gold-bg); color: #d9bb6a; }
+html[data-theme="dark"] .type-rest { background: var(--green-bg); color: #52c57e; }
+html[data-theme="dark"] .type-law { background: var(--accent-bg); color: #9ab1ff; }
+html[data-theme="dark"] .type-def { background: rgba(120,140,90,0.16); color: #a8bd85; }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle { display:flex; align-items:center; gap:2px; background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:3px; margin-left:.75rem; }
+.theme-toggle button { background:none; border:none; cursor:pointer; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.85rem; color:var(--text-muted); transition:all .15s; }
+.theme-toggle button.on { background:var(--accent-bg); color:var(--accent); }
+.theme-toggle button:hover { color:var(--text-primary); }
+
+/* ── FADED PROJECT PREVIEWS ── */
+.project-card .preview-bg { position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; opacity:0.07; pointer-events:none; transition:opacity .3s; }
+html[data-theme="dark"] .project-card .preview-bg { opacity:0.13; }
+.project-card:hover .preview-bg { opacity:0.12; }
+html[data-theme="dark"] .project-card:hover .preview-bg { opacity:0.2; }
+.project-card .preview-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent, var(--surface) 88%); }
+.project-card > *:not(.preview-bg) { position:relative; z-index:1; }
+.preview-grad-a { background-image:linear-gradient(135deg, var(--accent-bg), transparent 60%); opacity:.8 !important; }
+.preview-grad-g { background-image:linear-gradient(135deg, var(--green-bg), transparent 60%); opacity:.8 !important; }
+.preview-grad-p { background-image:linear-gradient(135deg, var(--purple-bg), transparent 60%); opacity:.8 !important; }
+.preview-grad-o { background-image:linear-gradient(135deg, var(--gold-bg), transparent 60%); opacity:.8 !important; }
+
+/* ── WHATSAPP FLOAT ── */
+.wa-float { position:fixed; bottom:22px; right:22px; z-index:90; width:56px; height:56px; border-radius:50%; background:#25D366; display:none; align-items:center; justify-content:center; box-shadow:0 10px 28px rgba(0,0,0,.3); transition:transform .15s; }
+.wa-float:hover { transform:scale(1.08); }
+.wa-float svg { width:30px; height:30px; fill:#fff; }
+.wa-float.show { display:flex; }
+
 
 body {
   font-family: var(--font-sans);
@@ -370,6 +423,7 @@ nav {
 .project-card.ecom::before { background: linear-gradient(90deg, #f0b400, #111110); }
 .project-card.rest::before { background: linear-gradient(90deg, #25D366, #E8B84B); }
 .project-card.law::before { background: linear-gradient(90deg, #122E5F, #C9A227); }
+.project-card.def::before { background: linear-gradient(90deg, #232D1E, #C9A85C); }
 
 .project-card:hover {
   border-color: var(--border-strong); box-shadow: var(--shadow-lg);
@@ -390,6 +444,7 @@ nav {
 .type-ecom { background: #fdf9e7; color: #8a6d00; }
 .type-rest { background: #eaf5ee; color: #1f6b3a; }
 .type-law { background: #eef1f8; color: #24406e; }
+.type-def { background: #eff3e6; color: #4e5f33; }
 
 .project-links-top { display: flex; gap: 0.5rem; }
 .icon-btn {
@@ -604,6 +659,18 @@ footer {
   .skills-grid { grid-template-columns: 1fr; }
 }
 </style>
+<script>
+(function(){
+  const root=document.documentElement, mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(){const m=localStorage.getItem('theme')||'system';
+    root.setAttribute('data-theme', m==='system' ? (mq.matches?'dark':'light') : m);
+    document.querySelectorAll('.theme-toggle button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));}
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('.theme-toggle button').forEach(b=>b.addEventListener('click',()=>{localStorage.setItem('theme',b.dataset.mode);apply();}));
+    apply();});
+  mq.addEventListener('change',apply); apply();
+})();
+</script>
 </head>
 <body>
 
@@ -620,6 +687,11 @@ footer {
       <li><a href="#about">About</a></li>
     </ul>
     <a href="mailto:ajibadetoluwa806@gmail.com" class="nav-cta">Get in touch</a>
+    <div class="theme-toggle" role="group" aria-label="Colour theme">
+      <button data-mode="light" title="Light" aria-label="Light theme">☀</button>
+      <button data-mode="dark" title="Dark" aria-label="Dark theme">☾</button>
+      <button data-mode="system" title="System" aria-label="Follow system theme">◐</button>
+    </div>
   </div>
 </nav>
 
@@ -637,7 +709,7 @@ footer {
       <p class="hero-role">Full-Stack Engineer & AI Systems Builder</p>
       <p class="hero-desc">
         Fresh graduate from Bowen University. I build production-grade web apps, AI-powered platforms, 
-        IoT systems, and mobile apps — things that are live on the internet, not collecting dust on GitHub.
+        IoT systems, and mobile apps, things that are live on the internet, not collecting dust on GitHub.
       </p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">View Projects ↓</a>
@@ -708,7 +780,7 @@ footer {
     <div class="section-header reveal">
       <div class="section-eyebrow"><span class="eyebrow-line"></span>Expertise</div>
       <h2 class="section-title">Skills & Technologies</h2>
-      <p class="section-desc">A wide stack built across real deployed projects — not tutorials.</p>
+      <p class="section-desc">A wide stack built across real deployed projects, not tutorials.</p>
     </div>
 
     <div class="skills-layout">
@@ -821,13 +893,14 @@ footer {
     <div class="section-header reveal">
       <div class="section-eyebrow"><span class="eyebrow-line"></span>Portfolio</div>
       <h2 class="section-title">Projects</h2>
-      <p class="section-desc">Real software, live on the internet. Not tutorials — actual deployed systems.</p>
+      <p class="section-desc">Real software, live on the internet. Not tutorials, actual deployed systems.</p>
     </div>
 
     <div class="projects-grid">
 
       <!-- IoT Weather -->
       <div class="project-card iot reveal">
+        <div class="preview-bg preview-grad-a"></div>
         <div class="project-header">
           <span class="project-type type-iot">IoT · Final Year Project</span>
           <div class="project-links-top">
@@ -895,7 +968,7 @@ footer {
         <p class="project-desc">
           ML-powered financial fraud detection app trained on a Kaggle dataset using XGBoost with SMOTE 
           oversampling to handle class imbalance. Achieved an exceptional ROC-AUC score of 0.9971. 
-          Flask API backend, React frontend — both fully deployed.
+          Flask API backend, React frontend, both fully deployed.
         </p>
         <div class="project-stack">
           <span class="stack-pill">XGBoost</span><span class="stack-pill">SMOTE</span>
@@ -911,6 +984,7 @@ footer {
 
       <!-- Skincare App -->
       <div class="project-card mobile reveal" style="transition-delay:0.16s">
+        <div class="preview-bg preview-grad-p"></div>
         <div class="project-header">
           <span class="project-type type-mobile">Mobile · AI · Android</span>
           <div class="project-links-top">
@@ -939,6 +1013,7 @@ footer {
 
       <!-- ÈKÓ Streetwear Store -->
       <div class="project-card ecom reveal" style="transition-delay:0.2s">
+        <div class="preview-bg" style="background-image:url(assets/prev-eko.webp)"></div>
         <div class="project-header">
           <span class="project-type type-ecom">E-Commerce · Web</span>
           <div class="project-links-top">
@@ -947,10 +1022,10 @@ footer {
             </a>
           </div>
         </div>
-        <h3 class="project-name">ÈKÓ — Lagos Streetwear Store</h3>
+        <h3 class="project-name">ÈKÓ, Lagos Streetwear Store</h3>
         <p class="project-desc">
           Fashion e-commerce storefront for a Lagos streetwear brand. Product catalog with category 
-          filtering, size selection, persistent cart with delivery-fee logic, and a demo checkout flow — 
+          filtering, size selection, persistent cart with delivery-fee logic, and a demo checkout flow, 
           all product imagery hand-drawn as inline SVG, with a custom danfo-yellow design system. Fully deployed.
         </p>
         <div class="project-stack">
@@ -966,6 +1041,7 @@ footer {
 
       <!-- Big Mama Gabriel Restaurant -->
       <div class="project-card rest reveal" style="transition-delay:0.25s">
+        <div class="preview-bg" style="background-image:url(https://commons.wikimedia.org/wiki/Special:FilePath/JOLLOF_RICE_WITH_CHICKEN.jpg?width=700)"></div>
         <div class="project-header">
           <span class="project-type type-rest">Client Work · Restaurant</span>
           <div class="project-links-top">
@@ -976,8 +1052,8 @@ footer {
         </div>
         <h3 class="project-name">Big Mama Gabriel Restaurant</h3>
         <p class="project-desc">
-          Business website for a restaurant in Abuja. Full menu with per-dish WhatsApp ordering — every 
-          item opens a pre-filled order message — plus a package-deal highlight, catering/special orders 
+          Business website for a restaurant in Abuja. Full menu with per-dish WhatsApp ordering, every 
+          item opens a pre-filled order message, plus a package-deal highlight, catering/special orders 
           section, opening hours and Google Maps location. Zero-backend architecture a small business can run forever.
         </p>
         <div class="project-stack">
@@ -992,6 +1068,7 @@ footer {
 
       <!-- Fadacon and CG Chambers -->
       <div class="project-card law reveal" style="transition-delay:0.3s">
+        <div class="preview-bg" style="background-image:url(assets/prev-fadacon.webp)"></div>
         <div class="project-header">
           <span class="project-type type-law">Client Work · Law Firm</span>
           <div class="project-links-top">
@@ -1017,6 +1094,35 @@ footer {
         </div>
       </div>
 
+
+      <!-- FAVDAVCON Corporate Website -->
+      <div class="project-card def reveal" style="transition-delay:0.35s">
+        <div class="preview-bg" style="background-image:url(assets/prev-favdavcon.webp)"></div>
+        <div class="project-header">
+          <span class="project-type type-def">Client Work · Corporate Supply</span>
+          <div class="project-links-top">
+            <a href="https://favdavcon-website.vercel.app" target="_blank" class="icon-btn" title="Live site">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-name">FAVDAVCON &amp; CG Nig Ltd</h3>
+        <p class="project-desc">
+          15-page corporate website for an Abuja military and corporate supply company. Product catalog 
+          across six categories with per-category quote requests, a federal registrations showcase, 
+          leadership profile, and an email-delivered quotation system. Generated from a custom Python 
+          static-site builder.
+        </p>
+        <div class="project-stack">
+          <span class="stack-pill">HTML/CSS/JS</span><span class="stack-pill">Python Generator</span>
+          <span class="stack-pill">Multi-page Architecture</span><span class="stack-pill">Vercel</span>
+        </div>
+        <div class="project-footer">
+          <a href="https://favdavcon-website.vercel.app" target="_blank" class="project-link-btn link-primary">Live Site ↗</a>
+          <a href="https://github.com/IfElseexe/favdavcon-website" target="_blank" class="project-link-btn link-ghost">GitHub ↗</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1031,20 +1137,20 @@ footer {
     <div class="about-grid">
       <div class="about-text reveal">
         <p>
-          I'm a <span class="about-highlight">Software Engineering graduate from Bowen University, Iwo</span> — 
+          I'm a <span class="about-highlight">Software Engineering graduate from Bowen University, Iwo</span>, 
           class of 2026. Over four years I've gone from learning how to code to building and deploying full 
           production systems: IoT sensor networks, AI-powered web platforms, fraud detection models, and 
           cross-platform mobile apps.
         </p>
         <p>
-          My final year project was an <span class="about-highlight">end-to-end IoT Weather Monitoring System</span> — 
+          My final year project was an <span class="about-highlight">end-to-end IoT Weather Monitoring System</span>, 
           custom ESP32 hardware, C++ firmware, a Node.js backend, and a Next.js dashboard, all live and defended 
           successfully. I also built or contributed to three other deployed projects for classmates during the same semester.
         </p>
         <p>
           I'm comfortable across the entire stack: firmware in C++, Python ML pipelines, 
           Node.js/FastAPI backends, React/Next.js frontends, and cloud deployment. 
-          I don't just build for demos — I build things that actually work.
+          I don't just build for demos, I build things that actually work.
         </p>
         <div class="availability-badge">
           <span class="avail-dot"></span>
@@ -1087,7 +1193,7 @@ footer {
     <div class="contact-grid">
       <div class="reveal">
         <p class="contact-intro">
-          Whether it's a job, freelance contract, a collaboration, or just to connect — 
+          Whether it's a job, freelance contract, a collaboration, or just to connect, 
           I'm open. Pick any channel below, I respond fast.
         </p>
         <div class="contact-methods">
@@ -1179,6 +1285,13 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="Chat with me on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.2c1.9 1 4 1.6 4.7 1.6 6.6 0 12-5.3 12-11.9S22.6 3 16 3zm6.6 16.9c-.3.8-1.6 1.5-2.3 1.6-.6.1-1.3.2-3.7-.8-3.1-1.3-5.1-4.4-5.3-4.6-.2-.2-1.3-1.7-1.3-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l1 2.5c.1.2.1.4 0 .6l-.4.7-.6.6c-.2.2-.4.4-.2.7.2.4 1 1.7 2.2 2.7 1.5 1.4 2.8 1.8 3.2 2 .4.2.6.1.8-.1l1.3-1.5c.3-.3.5-.2.8-.1l2.4 1.1c.4.2.6.3.7.5.1.1.1.8-.2 1.6z"/></svg>
+</a>
+<script>
+const WHATSAPP_NUMBER = ""; // international format e.g. 2348012345678
+if(WHATSAPP_NUMBER){const w=document.getElementById('waFloat');w.href="https://wa.me/"+WHATSAPP_NUMBER+"?text=Hi%20Emmanuel!%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20talk.";w.classList.add('show');}
 </script>
 </body>
 </html>
